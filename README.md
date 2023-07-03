@@ -17,7 +17,7 @@ For more information about the data structure, read data/README.md
 ```bash
 python3 -m venv sot
 source sot/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 
