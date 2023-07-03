@@ -9,6 +9,7 @@ wget "https://bollin.inf.ed.ac.uk/public/direct/lre-data.zip"
 unzip lre-data.zip -d data
 rm lre-data.zip
 ```
+For more information about the data structure, read data/README.md
 
 
 If you use this implementation in your article, please cite: (add citation information).
