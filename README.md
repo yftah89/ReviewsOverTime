@@ -13,6 +13,13 @@ rm lre-data.zip
 ```
 For more information about the data structure, read data/README.md
 
+## Creating a virtual environment 
+```bash
+python3 -m venv sot
+source sot/bin/activate
+pip install -r requirements.txt
+```
+
 
 If you use this implementation in your article, please cite: (add citation information).
 
