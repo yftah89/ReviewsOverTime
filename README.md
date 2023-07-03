@@ -3,8 +3,10 @@ Authors: Yftah Ziser, Bonnie Webber, and Shay Cohen (The University of Edinburgh
 
 This code repository generates results appearing in the paper ["Rant or Rave: Variation over Time in the Language of Online Reviews"](https://link.springer.com/article/10.1007/s10579-023-09652-5)
 
-## Getting the data
+## Setting up the repository and the data
 ```bash
+git clone https://github.com/yftah89/ReviewsOverTime
+cd ReviewsOverTime
 wget "https://bollin.inf.ed.ac.uk/public/direct/lre-data.zip"
 unzip lre-data.zip -d data
 rm lre-data.zip
