@@ -1,9 +1,7 @@
 import pandas as pd
-from xlwt import Workbook
 import matplotlib.pyplot as plt
 import pickle
 import os
-import seaborn as sns
 import matplotlib.font_manager as font_manager
 from scipy.stats.stats import pearsonr
 
@@ -126,20 +124,7 @@ def get_star_by_year_df(category, year, stars=None):
     return df_tmp
 
 
-def save_to_sheet(category, start_year, end_year, titles, dicts, stars=None):
-    wb = Workbook()
-    sheet1 = wb.add_sheet('Sheet 1')
-    sheet1.write(1, 0, 'Year')
-    for i in range(1, end_year-start_year+2):
-        sheet1.write(1, i, start_year+i-1)
-    for i in range(2, 2 + len(titles)):
-        sheet1.write(i, 0, titles[i-2])
-        for j in range(1, end_year-start_year+2):
-            sheet1.write(i, j, dicts[i-2][start_year+j-1])
-    if stars:
-        wb.save('{} with {} stars.xls'.format(category, stars))
-    else:
-        wb.save('{}.xls'.format(category))
+
 
 
 def get_time_series(start, end, task_dict, std_dict=None):
@@ -213,21 +198,7 @@ def check_if_file_exists(category, desc, stars):
     return os.path.isfile(filename)
 
 
-def create_heat_map(titles, categories, sen, display):
-    binary_sen = ["negative", "positive"]
-    for category in range(len(categories)):
-        for i in range(2):
-            data = {}
-            for t in range(len(titles)):
-                path = format_file_name(categories[category], titles[t], sen[category][i])
-                task_dict, std_dict = load_file(path)
-                task_list = [task_dict[k] for k in sorted(task_dict)]
-                data[display[t]] = task_list
-            analysis = pd.DataFrame(data)
-            fig, ax = plt.subplots(figsize=(11, 9))
-            heatmap = sns.heatmap(analysis.corr(), cmap="Blues", vmin=-1, vmax=1, annot=True)
 
-            fig.savefig("results/{}_{}_heatmap.png".format(categories[category], sen[category][i]),  dpi=300)
 
 
 def prepare_helpful(category, start_year, end_year, sen, minimal_freq=50):

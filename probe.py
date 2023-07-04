@@ -4,7 +4,6 @@ import math
 from sklearn.feature_extraction.text import CountVectorizer
 from multiprocess import Process, Manager
 import utils
-from lexicalrichness import LexicalRichness
 from vader import SentimentIntensityAnalyzer
 import os
 
@@ -135,31 +134,7 @@ def calc_len(year, category, sample_size, task_dict, std_dict, stars):
     print("Finished {}".format(year))
 
 
-def calc_avg_lexical_richness(df):
-    reviews = df['reviews'].tolist()
-    lex_sum = 0
-    count = 0
-    lex_list = []
-    for r in reviews:
-        try:
-            length = len(r.split(" "))
-            if length > 200:
-                lex = LexicalRichness(r)
-                lex_sum += lex.mtld(threshold=0.72)
-                lex_list.append(lex.mtld(threshold=0.72))
-            else:
-                count += 1
-        except:
-            count += 1
-    std = np.std(lex_list)
 
-    return lex_sum/(len(reviews) - count), std
-
-
-def calc_lexical_richness(year, category, sample_size, task_dict, std_dict, stars):
-    df_tmp = utils.get_star_by_year_df(category, year, stars)
-    task_dict[year], std_dict[year] = calc_avg_lexical_richness(df_tmp.sample(sample_size, replace=True))
-    print("Finished {}".format(year))
 
 
 def calc_sen_full_avg(df):

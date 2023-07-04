@@ -1,10 +1,5 @@
-from create_dataset import ReviewDataProvider
-from create_dataset import YelpDataProvider
-from create_dataset import IMDBDataProvider
-from create_dataset import BookingDataProvider
 import utils
 import probe
-import train
 import pickle
 
 
@@ -17,14 +12,12 @@ if __name__ == '__main__':
     markers = ['o', 's', '^']
     colors = ["blue", "orange", "green"]
     titles = ["Word level sentiment", "Enhanced sentiment", "Absolute sentiment intensity", "#words",
-              "% of dichotomous reviews", "MTLD", "% of frequent sentiment words use"]
+              "% of dichotomous reviews", "% of frequent sentiment words use"]
     display_titles = ["Sentiment", "Enhanced", "Absolute", "#words", "one-sided", "MTLD", "freq"]
-    functions = [probe.calc_sen, probe.calc_sen_full, probe.calc_abs, probe.calc_len, probe.calc_one_sided,
-                 probe.calc_lexical_richness, probe.calc_top_coverage]
+    functions = [probe.calc_sen, probe.calc_sen_full, probe.calc_abs, probe.calc_len, probe.calc_one_sided, probe.calc_top_coverage]
     add_lexicon = [True, False, True, False, False, False, True]
     force_positive = [False, False, False, True, True, True, True]
     sen = [[1, 5], [1, 5], [1, 10]]
-    AoA = utils.load_AoA("data/AoA.csv")
     lexicon = utils.load_lexicon("data/vader_lexicon.txt")
     #intersection = AoA.keys() & lexicon.keys()
     #both = {your_key: AoA[your_key] for your_key in intersection}
@@ -35,7 +28,7 @@ if __name__ == '__main__':
 
 
     indexes = [0, 2]
-    for t in range(7):
+    for t in range(6):
         print(titles[t])
         for j in range(2):
             dicts = []
