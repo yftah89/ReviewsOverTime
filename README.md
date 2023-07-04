@@ -20,6 +20,17 @@ source sot/bin/activate
 pip3 install -r requirements.txt
 ```
 
+## How to Cite Our Work
+```
+@article{ziser2023rant,
+  title={Rant or rave: variation over time in the language of online reviews},
+  author={Ziser, Yftah and Webber, Bonnie and Cohen, Shay B},
+  journal={Language Resources and Evaluation},
+  pages={1--31},
+  year={2023},
+  publisher={Springer}
+}
+
 
 If you use this implementation in your article, please cite: (add citation information).
 
