@@ -4,7 +4,6 @@ import math
 from sklearn.feature_extraction.text import CountVectorizer
 from multiprocess import Process, Manager
 import utils
-import pickle
 from lexicalrichness import LexicalRichness
 from vader import SentimentIntensityAnalyzer
 import os
