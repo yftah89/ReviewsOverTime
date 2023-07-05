@@ -26,16 +26,15 @@ pip3 install -r requirements.txt
 ```
 
 ## Run main experiments (section 5 in the paper)
-We ran our code on a high-performance server with more than 250GB of ram, which was very helpful considering the code is highly parallel. 
-For those of you who don't have access to such resources, we provide a memory-constrained option (which results in waiting a bit longer for the results). 
-Regular version (I have access to a server with a lot of ram):
+We executed our code on a high-performance server with over 250GB of RAM, which proved to be immensely beneficial given the highly parallel nature of the code. However, for those without access to such resources, we offer a memory-constrained option that may result in slightly longer wait times for the results. To run the regular version (assuming access to a server with abundant RAM), use the following command:
 ```
 python3 run_main.py
 ```
-If you don't have access to such a server, you can specify the maximum amount of process for the script, for example, 5 (the lower the number, the less memory will be consumed):
+If you lack access to a powerful server, you can specify a maximum number of processes for the script, such as 5 (lower values consume less memory), using the following command:
 ```
 python3 run_main.py 5
 ```
+By adjusting the number of processes, you can control memory consumption according to your available resources.
 
 Once the script completes, the corresponding graphs will be generated in the "figs" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
 
