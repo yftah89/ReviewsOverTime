@@ -37,6 +37,7 @@ If you don't have access to such a server, you can specify the maximum amount of
 python3 run_main.py 5
 ```
 
+Once the script completes, the corresponding graphs will be generated in the "figs" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
 
 ## How to Cite Our Work
 ```
