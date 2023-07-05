@@ -25,6 +25,31 @@ source sot/bin/activate
 pip3 install -r requirements.txt
 ```
 
+## Run main experiments (section 5 in the paper)
+We ran our code on a high-performance server with more than 250GB of ram, which was very helpful considering the code is highly parallel. 
+For those of you who don't have access to such resources, we provide a memory-constrained option (which results in waiting a bit longer for the results). 
+Regular version (I have access to a server with a lot of ram):
+```
+python3 run_main.py
+```
+If you don't have access to such a server, you can specify the maximum amount of process for the script, for example, 5 (the lower the number, the less memory will be consumed):
+```
+python3 run_main.py 5
+```
+
+
+## How to Cite Our Work
+```
+@article{ziser2023rant,
+  author = "Yftah Ziser, Bonnie Webber and Shay B. Cohen",
+  journal = "Language Resources and Evaluation",
+  year = 2023,
+  title = "Rant or rave: variation over time in the language of online reviews",
+  doi = {10.1007/s10579-023-09652-5},
+  url = {https://doi.org/10.1007/s10579-023-09652-5}
+}
+```
+
 
 
 
