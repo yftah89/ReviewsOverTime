@@ -13,18 +13,13 @@ if __name__ == '__main__':
     colors = ["blue", "orange", "green"]
     titles = ["Word level sentiment", "Enhanced sentiment", "Absolute sentiment intensity", "#words",
               "% of dichotomous reviews", "% of frequent sentiment words use"]
-    display_titles = ["Sentiment", "Enhanced", "Absolute", "#words", "one-sided", "MTLD", "freq"]
+    display_titles = ["Sentiment", "Enhanced", "Absolute", "#words", "one-sided", "freq"]
     functions = [probe.calc_sen, probe.calc_sen_full, probe.calc_abs, probe.calc_len, probe.calc_one_sided, probe.calc_top_coverage]
     add_lexicon = [True, False, True, False, False, False, True]
-    force_positive = [False, False, False, True, True, True, True]
+    force_positive = [False, False, False, True, True, True]
     sen = [[1, 5], [1, 5], [1, 10]]
     lexicon = utils.load_lexicon("data/vader_lexicon.txt")
-    #intersection = AoA.keys() & lexicon.keys()
-    #both = {your_key: AoA[your_key] for your_key in intersection}
-    #utils.get_lexicons_similarity("data/vader_lexicon.txt", "data/AFINN-en-165.txt")
-    #extreme_lexicon = utils.get_extreme_lexicon(utils.load_lexicon("data/vader_lexicon.txt"), -3, "neg")
-    #reviews = utils.get_star_by_year_df("IMDB", 2020, 1).head(10000)['reviews']
-    #utils.get_extreme_reviews(extreme_lexicon, reviews)
+
 
 
     indexes = [0, 2]

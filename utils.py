@@ -114,13 +114,14 @@ def slice_data_by_year(df, start_year, end_year, category):
             pickle.dump(df_tmp, f)
 
 
-def get_star_by_year_df(category, year, stars=None):
-    filename = "data/{}_by_year/{}_df".format(category, year)
+def get_star_by_year_df(category, year, stars):
+    if stars == 1:
+        sen = "neg"
+    else:
+        sen = "pos"
+    filename = "data/final_data/{}/{}/{}_df".format(category, sen, year)
     with open(filename, 'rb') as f:
         df_tmp = pickle.load(f)
-    if stars:
-        df_tmp = df_tmp[df_tmp["scores"] == stars]
-
     return df_tmp
 
 
@@ -170,6 +171,43 @@ def create_figure(categories, start_years, end_years, dicts, x_name, y_name, lin
 
     plt.title(title, fontname='Times New Roman', size='xx-large', fontweight='bold')
     plt.savefig('figs/{}_{}_pr.png'.format(y_name, sen), dpi=300)
+    plt.clf()
+
+def create_figure_main(categories, start_years, end_years, dicts, x_name, y_name, line_styles, sen, colors, std_dicts,
+                      markers=None):
+    directory_path = "figs/main"
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
+    hfont = {'fontname': 'Times New Roman', 'size': 'xx-large', 'fontweight': 'bold'}
+    plt.locator_params(axis='x', nbins=5)
+    for i in range(len(categories)):
+        temp_category = categories[i].replace("IMDB", "IMDb")
+        temp_category = temp_category.replace("help", "h")
+        if std_dicts:
+            years, values, std = get_time_series(start_years[i], end_years[i], dicts[i], std_dicts[i])
+            if markers:
+                plt.plot(years, values, line_styles[i], label=temp_category, color=colors[i], marker=markers[i])
+            else:
+                plt.plot(years, values, line_styles[i], label=temp_category, color=colors[i])
+        else:
+            print(start_years, end_years, dicts, i)
+            years, values = get_time_series(start_years[i], end_years[i], dicts[i])
+
+            plt.plot(years, values, line_styles[i], label=categories[i])
+    font = font_manager.FontProperties(family='Times New Roman',
+                                       weight='bold',
+                                       style='normal', size='small')
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=len(categories), prop=font)
+    # plt.xlabel(x_name, **hfont)
+    plt.ylabel(y_name, **hfont)
+    if sen == "negative":
+        title = "Negative"
+    else:
+        title = "Positive"
+
+    plt.title(title, fontname='Times New Roman', size='xx-large', fontweight='bold')
+    plt.savefig(directory_path+'/{}_{}.png'.format(y_name, sen), dpi=300)
     plt.clf()
 
 

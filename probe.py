@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import math
 from sklearn.feature_extraction.text import CountVectorizer
-from multiprocess import Process, Manager
+from multiprocess import Process, Manager, Pool
 import utils
 from vader import SentimentIntensityAnalyzer
 import os
@@ -86,7 +86,8 @@ def calc_top_coverage(year, category, sample_size, lexicon, task_dict, std_dict,
     print("Finished {}".format(year))
 
 
-def parallel_calculation_per_year(calc_args, calc_func, start_year, end_year, stars=None, do_print=True, desc=None):
+def parallel_calculation_per_year(calc_args, calc_func, start_year, end_year, stars=None, do_print=True, desc=None,
+                                  max_processes = None):
     file_name = utils.format_file_name(calc_args[0], desc, stars)
     if os.path.isfile(file_name):
         print("{} already exists".format(file_name))
@@ -95,19 +96,22 @@ def parallel_calculation_per_year(calc_args, calc_func, start_year, end_year, st
     manager = Manager()
     task_dict = manager.dict()
     std_dict = manager.dict()
-    job = []
+    if max_processes:
+        pool = Pool(processes=max_processes)  # Create a process pool
+    else:
+        pool = Pool()
+
     for i in range(start_year, end_year + 1):
         if stars:
             per_year_calc_args = (i,) + calc_args + (task_dict, std_dict, stars)
         else:
-            per_year_calc_args = (i,) + calc_args + (task_dict, std_dict,)
-        job.append(Process(target=calc_func, args=per_year_calc_args))
-    _ = [p.start() for p in job]
-    _ = [p.join() for p in job]
-    if do_print:
-        for key in sorted(task_dict):
-            print("%s: %s %s" % (key, task_dict[key], std_dict[key]))
-    utils.save_file([dict(task_dict), dict(std_dict)], file_name)
+            per_year_calc_args = (i,) + calc_args + (task_dict, std_dict)
+
+        pool.apply_async(calc_func, args=per_year_calc_args)
+
+    pool.close()
+    pool.join()
+
     return task_dict, std_dict
 
 
