@@ -29,12 +29,12 @@ pip3 install -r requirements.txt
 ## How to Cite Our Work
 ```
 @article{ziser2023rant,
-  title={Rant or rave: variation over time in the language of online reviews},
-  author={Ziser, Yftah and Webber, Bonnie and Cohen, Shay B},
-  journal={Language Resources and Evaluation},
-  pages={1--31},
-  year={2023},
-  publisher={Springer}
+  author = "Yftah Ziser, Bonnie Webber and Shay B. Cohen",
+  journal = "Language Resources and Evaluation",
+  year = 2023,
+  title = "Rant or rave: variation over time in the language of online reviews",
+  doi = {10.1007/s10579-023-09652-5},
+  url = {https://doi.org/10.1007/s10579-023-09652-5}
 }
 ```
 
