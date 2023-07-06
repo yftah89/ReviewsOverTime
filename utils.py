@@ -140,8 +140,10 @@ def get_time_series(start, end, task_dict, std_dict=None):
     return years, values
 
 
-def create_figure(categories, start_years, end_years, dicts, x_name, y_name, line_styles, sen, colors, std_dicts,
-                  markers=None):
+def create_figure_pr(categories, start_years, end_years, dicts, x_name, y_name, line_styles, sen, colors, std_dicts,
+                     directory_path, markers=None):
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
     hfont = {'fontname': 'Times New Roman', 'size': 'xx-large', 'fontweight': 'bold'}
     plt.locator_params(axis='x', nbins=3)
     for i in range(len(categories)):
@@ -170,12 +172,11 @@ def create_figure(categories, start_years, end_years, dicts, x_name, y_name, lin
         title = "Positive"
 
     plt.title(title, fontname='Times New Roman', size='xx-large', fontweight='bold')
-    plt.savefig('figs/{}_{}_pr.png'.format(y_name, sen), dpi=300)
+    plt.savefig(directory_path + '/{}_{}.png'.format(y_name, sen), dpi=300)
     plt.clf()
 
-def create_figure_main(categories, start_years, end_years, dicts, x_name, y_name, line_styles, sen, colors, std_dicts,
-                      markers=None):
-    directory_path = "figs/main"
+def create_figure_main(categories, start_years, end_years, dicts, x_name, y_name, line_styles, sen, colors,
+                       std_dicts, directory_path, markers=None):
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
@@ -207,7 +208,7 @@ def create_figure_main(categories, start_years, end_years, dicts, x_name, y_name
         title = "Positive"
 
     plt.title(title, fontname='Times New Roman', size='xx-large', fontweight='bold')
-    plt.savefig(directory_path+'/{}_{}.png'.format(y_name, sen), dpi=300)
+    plt.savefig(directory_path + '/{}_{}.png'.format(y_name, sen), dpi=300)
     plt.clf()
 
 

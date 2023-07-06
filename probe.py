@@ -111,6 +111,10 @@ def parallel_calculation_per_year(calc_args, calc_func, start_year, end_year, st
 
     pool.close()
     pool.join()
+    directory_path = "results"
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+    utils.save_file([dict(task_dict), dict(std_dict)], file_name)
 
     return task_dict, std_dict
 
