@@ -25,7 +25,7 @@ source sot/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## Run main experiments (section 5 in the paper)
+## Run main experiments (section 4 in the paper)
 We executed our code on a high-performance server with over 250GB of RAM, which proved to be immensely beneficial given the highly parallel nature of the code. However, for those without access to such resources, we offer a memory-constrained option that may result in slightly longer wait times for the results. 
 To run the regular version (assuming access to a server with abundant RAM), use the following command:
 ```
