@@ -53,7 +53,7 @@ By adjusting the number of processes, you can control memory consumption accordi
 
 Once the script completes, the corresponding graphs will be generated in the "figs/pr" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
 
-## Run helpful reviews experiments (section 5 in the paper)
+## Run helpful reviews experiments (section 6 in the paper)
 Similar to the main experiments, we provide with two versions of this script. 
 To run the regular version (assuming access to a server with abundant RAM), use the following command:
 ```
