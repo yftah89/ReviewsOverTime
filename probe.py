@@ -11,6 +11,11 @@ import os
 neg_rating = 1
 
 
+def print_message(category, year):
+    if category!="Booking-pc" and category!="Booking-mobile":
+        print("Finished {}".format(year))
+
+
 def get_histogram(input_list, x_name, y_name, title, category):
     bins = np.linspace(math.ceil(min(input_list)), math.floor(max(input_list)), 40)  # fixed number of bins
     plt.clf()
@@ -43,13 +48,13 @@ def calc_avg_sentiment(df, lexicon, use_abs=None):
 def calc_sen(year, category, sample_size, lexicon, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year],  std_dict[year] = calc_avg_sentiment(df_tmp.sample(sample_size, replace=True), lexicon)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def calc_abs(year, category, sample_size, lexicon, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = calc_avg_sentiment(df_tmp.sample(sample_size, replace=True), lexicon, use_abs=True)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def calc_avg_lexicon_coverage(df, lexicon):
@@ -68,7 +73,7 @@ def calc_avg_lexicon_coverage(df, lexicon):
 def calc_lexicon_coverage(year, category, lexicon, d, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     d[year] = calc_avg_lexicon_coverage(df_tmp.sample(100000, replace=True), lexicon)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def calc_avg_top_coverage(df, lexicon):
@@ -83,7 +88,7 @@ def calc_avg_top_coverage(df, lexicon):
 def calc_top_coverage(year, category, sample_size, lexicon, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = calc_avg_top_coverage(df_tmp.sample(sample_size, replace=True), lexicon)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def parallel_calculation_per_year(calc_args, calc_func, start_year, end_year, stars=None, do_print=True, desc=None,
@@ -139,7 +144,7 @@ def calc_avg_len(df):
 def calc_len(year, category, sample_size, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = calc_avg_len(df_tmp.sample(sample_size, replace=True))
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 
@@ -150,7 +155,9 @@ def calc_sen_full_avg(df):
     score_sum = 0
     not_in_use = 0
     scores = []
-    analyzer = SentimentIntensityAnalyzer()
+
+    analyzer = SentimentIntensityAnalyzer(lexicon_file="data/vader_lexicon.txt", emoji_lexicon="data/emoji_utf8_lexicon.txt")
+
     for r in reviews:
         vs = analyzer.polarity_scores(r)
         score = vs['compound']
@@ -162,19 +169,20 @@ def calc_sen_full_avg(df):
             not_in_use += 1
     result = score_sum/(len(reviews)-not_in_use)
     std = np.std(scores)
+
     return result, std
 
 
 def calc_sen_full(year, category, sample_size, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = calc_sen_full_avg(df_tmp.sample(sample_size, replace=True))
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def calc_one_sided(year, category, sample_size, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = calc_one_sided_avg(df_tmp.sample(sample_size, replace=True), stars)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def calc_one_sided_avg(df, stars):
@@ -186,7 +194,7 @@ def calc_one_sided_avg(df, stars):
         opposite = 'neg'
     reviews = df['reviews'].values.astype('U')
     score_sum = 0
-    analyzer = SentimentIntensityAnalyzer()
+    analyzer = SentimentIntensityAnalyzer(lexicon_file="data/vader_lexicon.txt", emoji_lexicon="data/emoji_utf8_lexicon.txt")
     for r in reviews:
         vs = analyzer.polarity_scores(r)
         if vs[sent] > 0 and vs[opposite] == 0:
@@ -198,7 +206,7 @@ def calc_one_sided_avg(df, stars):
 def calc_review_num(year, category, d, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     d[year] = df_tmp.sample(100000, replace=True).shape[0]
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def create_vocab(lexicon, use_abs=None):
@@ -227,7 +235,7 @@ def get_reviewers_set(df):
 def calc_users(year, category, task_dict, std_dict, stars):
     df_tmp = utils.get_star_by_year_df(category, year, stars)
     task_dict[year], std_dict[year] = get_reviewers_set(df_tmp)
-    print("Finished {}".format(year))
+    print_message(category, year)
 
 
 def find_persistent_reviewers(category, stars, start_year, end_year):
