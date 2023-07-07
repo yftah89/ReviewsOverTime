@@ -40,7 +40,7 @@ By adjusting the number of processes, you can control memory consumption accordi
 Once the script completes, the corresponding graphs will be generated in the "figs/main" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
 
 ## Run persistent users experiments (section 5 in the paper)
-Similar to the main experiments, we provide with two versions of this script. 
+Similar to the main experiments, we provide two versions of this script. 
 To run the regular version (assuming access to a server with abundant RAM), use the following command:
 ```
 python3 run_pr.py
@@ -54,7 +54,7 @@ By adjusting the number of processes, you can control memory consumption accordi
 Once the script completes, the corresponding graphs will be generated in the "figs/pr" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
 
 ## Run helpful reviews experiments (section 6 in the paper)
-Similar to the main experiments, we provide with two versions of this script. 
+Similar to the main experiments, we provide two versions of this script. 
 To run the regular version (assuming access to a server with abundant RAM), use the following command:
 ```
 python3 run_helpful.py
@@ -66,6 +66,14 @@ python3 run_helpful.py 5
 By adjusting the number of processes, you can control memory consumption according to your available resources.
 
 Once the script completes, the corresponding graphs will be generated in the "figs/helpful" directory, and dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
+
+## Run electronic device experiments (section 7 in the paper)
+To run the electronic device experiments, use the following command: 
+```
+python3 run_device.py
+```
+Dictionaries containing the precise values of the experiments will be created in the "results" directory, saved using Pickle.
+For your convenience, we also print the results. 
 
 ## How to Cite Our Work
 ```
